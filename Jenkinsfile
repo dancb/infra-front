@@ -16,7 +16,7 @@ pipeline {
                         echo 'Terraform no está instalado. Procediendo con la instalación.'
                         sh '''
                         curl -O https://releases.hashicorp.com/terraform/1.5.7/terraform_1.5.7_linux_amd64.zip
-                        unzip terraform_1.5.7_linux_amd64.zip
+                        unzip -o terraform_1.5.7_linux_amd64.zip  # Sobrescribe sin pedir confirmación
                         mv terraform /usr/local/bin/
                         terraform version
                         '''
