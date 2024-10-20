@@ -12,12 +12,12 @@ pipeline {
                     // Verificar si Terraform está instalado
                     def terraform_installed = sh(script: 'which terraform', returnStatus: true)
                     
-                    if (terraform_installed != 0) { // Si Terraform no está instalado (returnStatus != 0)
+                    if (terraform_installed != 0) { // Si Terraform no está instalado
                         echo 'Terraform no está instalado. Procediendo con la instalación.'
                         sh '''
                         curl -O https://releases.hashicorp.com/terraform/1.5.7/terraform_1.5.7_linux_amd64.zip
                         unzip terraform_1.5.7_linux_amd64.zip
-                        sudo mv terraform /usr/local/bin/
+                        mv terraform /usr/local/bin/
                         terraform version
                         '''
                     } 
