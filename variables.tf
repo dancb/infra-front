@@ -7,7 +7,7 @@ variable "aws_region" {
 variable "bucket_name" {
   description = "El nombre del bucket S3"
   type        = string
-  default     = "mi-bucket-s3-1515151515"
+  default     = "buckets3-ejecutado-x-jenkins-deforma-automatizada-123"
 }
 
 variable "environment" {

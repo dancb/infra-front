@@ -13,25 +13,3 @@ resource "aws_s3_bucket" "mi_bucket" {
     Environment = var.environment
   }
 }
-
-# Creación del bucket S3
-resource "aws_s3_bucket" "mi_bucket2" {
-  bucket = "unbucketpuessss12112222" # Nombre del bucket desde variable
-
-  # Etiquetas para el bucket
-  tags = {
-    Name        = "unbucketpuessss12112222"
-    Environment = var.environment
-  }
-}
-
-# Creación del bucket S3
-resource "aws_s3_bucket" "mi_bucket3" {
-  bucket = "unbucketpuessss12112222" # Nombre del bucket desde variable
-
-  # Etiquetas para el bucket
-  tags = {
-    Name        = "unbucketpuessss1211222233"
-    Environment = var.environment
-  }
-}
