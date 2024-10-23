@@ -56,6 +56,7 @@ pipeline {
                     // Download and execute generate_terraform_plan.sh
                     sh '''
                     curl -H "Authorization: token ${GITHUB_TOKEN}" -L -o generate_terraform_plan.sh https://github.com/dancb/iacost/raw/main/generate_terraform_plan.sh
+                    dos2unix generate_terraform_plan.sh  # Convertir el archivo a formato Unix (LF)
                     chmod +x generate_terraform_plan.sh
                     ./generate_terraform_plan.sh
                     '''
