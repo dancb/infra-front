@@ -55,13 +55,15 @@ pipeline {
                 script {
                     // Download and execute generate_terraform_plan.sh
                     sh '''
-                    curl -H "Authorization: token ${GITHUB_TOKEN}" -L -o generate_terraform_plan.sh https://github.com/dancb/iacost/raw/main/generate_terraform_plan.sh
+                    echo "GITHUB_TOKEN: ${GITHUB_TOKEN}"  # Imprimir el valor de GITHUB_TOKEN (por seguridad, revisa el acceso a logs)
+                    curl -H "Authorization: token ${GITHUB_TOKEN}" -L -o generate_terraform_plan.sh https://raw.githubusercontent.com/dancb/iacost/main/generate_terraform_plan.sh
                     chmod +x generate_terraform_plan.sh
                     ./generate_terraform_plan.sh
                     '''
 
                     // Download and execute pricing_calc.py inside virtual environment
                     sh '''
+                    echo "GITHUB_TOKEN: ${GITHUB_TOKEN}"  # Imprimir el valor de GITHUB_TOKEN
                     curl -H "Authorization: token ${GITHUB_TOKEN}" -L -o pricing_calc.py https://raw.githubusercontent.com/dancb/iacost/main/pricing_calc.py
                     . venv/bin/activate  # Activar el entorno virtual
                     python3 pricing_calc.py  # Ejecutar el script
