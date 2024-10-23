@@ -83,9 +83,9 @@ pipeline {
         stage('Deploy Terraform') {
             steps {
                 script {
-                    //sh 'terraform init'
-                    //sh 'terraform apply -auto-approve'
-                    sh 'terraform destroy -auto-approve'
+                    sh 'terraform init'
+                    sh 'terraform apply -auto-approve'
+                    //sh 'terraform destroy -auto-approve'
                 }
             }
         }
