@@ -17,20 +17,20 @@ pipeline {
                         sh '''
                         curl -O https://releases.hashicorp.com/terraform/1.5.7/terraform_1.5.7_linux_amd64.zip
                         unzip terraform_1.5.7_linux_amd64.zip
-                        sudo mv terraform /usr/local/bin/
+                        mv terraform /usr/local/bin/
                         '''
                     }
 
                     def curl_installed = sh(script: 'which curl', returnStatus: true)
                     if (curl_installed != 0) {
                         echo 'Installing curl...'
-                        sh 'sudo apt update && sudo apt install -y curl'
+                        sh 'apt update && apt install -y curl'
                     }
 
                     def python_installed = sh(script: 'which python3', returnStatus: true)
                     if (python_installed != 0) {
                         echo 'Installing Python...'
-                        sh 'sudo apt update && sudo apt install -y python3 python3-pip'
+                        sh 'apt update && apt install -y python3 python3-pip'
                     }
 
                     def boto3_installed = sh(script: 'python3 -m pip show boto3', returnStatus: true)
