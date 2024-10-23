@@ -30,8 +30,12 @@ pipeline {
                     def python_installed = sh(script: 'which python3', returnStatus: true)
                     if (python_installed != 0) {
                         echo 'Installing Python...'
-                        sh 'apt update && apt install -y python3 python3-pip python3-venv'
+                        sh 'apt update && apt install -y python3 python3-pip'
                     }
+
+                    // Install python3-venv to enable virtual environment creation
+                    echo 'Installing python3-venv...'
+                    sh 'apt install -y python3-venv'
 
                     // Create and activate virtual environment
                     sh '''
