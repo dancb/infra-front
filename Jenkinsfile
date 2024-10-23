@@ -37,13 +37,6 @@ pipeline {
                     echo 'Installing python3-venv...'
                     sh 'apt install -y python3-venv'
 
-                    // Install dos2unix to convert line endings
-                    def dos2unix_installed = sh(script: 'which dos2unix', returnStatus: true)
-                    if (dos2unix_installed != 0) {
-                        echo 'Installing dos2unix...'
-                        sh 'apt update && apt install -y dos2unix'
-                    }
-
                     // Create and activate virtual environment
                     sh '''
                     python3 -m venv venv  # Crear entorno virtual
@@ -63,7 +56,6 @@ pipeline {
                     // Download and execute generate_terraform_plan.sh
                     sh '''
                     curl -H "Authorization: token ${GITHUB_TOKEN}" -L -o generate_terraform_plan.sh https://github.com/dancb/iacost/raw/main/generate_terraform_plan.sh
-                    dos2unix generate_terraform_plan.sh  # Convertir el archivo a formato Unix
                     chmod +x generate_terraform_plan.sh
                     ./generate_terraform_plan.sh
                     '''
