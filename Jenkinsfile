@@ -17,6 +17,7 @@ pipeline {
                         sh '''
                         curl -O https://releases.hashicorp.com/terraform/1.5.7/terraform_1.5.7_linux_amd64.zip
                         unzip -o terraform_1.5.7_linux_amd64.zip
+                        mkdir -p /var/jenkins_home/terraform
                         mv terraform /var/jenkins_home/terraform/
                         export PATH=$PATH:/var/jenkins_home/terraform/
                         '''
