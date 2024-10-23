@@ -58,7 +58,8 @@ pipeline {
                     // Download and execute pricing_calc.py
                     sh '''
                     curl -H "Authorization: token ${GITHUB_TOKEN}" -L -o pricing_calc.py https://github.com/dancb/iacost/blob/main/pricing_calc.py
-                    python3 pricing_calc.py
+                    . venv/bin/activate  # Activar el entorno virtual
+                    python3 pricing_calc.py  # Ejecutar el script
                     '''
                 }
             }
