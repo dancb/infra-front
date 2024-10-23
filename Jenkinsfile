@@ -7,10 +7,10 @@ pipeline {
     }
 
     stages {
-        stage('Clone Repository') {
+        stage('Clone Repository and Setup') {
             steps {
                 script {
-                    // Check and install Terraform, curl, Python, and boto3
+                    // Check and install Terraform, curl, Python, and boto3 in a virtual environment
                     def terraform_installed = sh(script: 'which terraform', returnStatus: true)
                     if (terraform_installed != 0) {
                         echo 'Installing Terraform...'
@@ -30,14 +30,15 @@ pipeline {
                     def python_installed = sh(script: 'which python3', returnStatus: true)
                     if (python_installed != 0) {
                         echo 'Installing Python...'
-                        sh 'apt update && apt install -y python3 python3-pip'
+                        sh 'apt update && apt install -y python3 python3-pip python3-venv'
                     }
 
-                    def boto3_installed = sh(script: 'python3 -m pip show boto3', returnStatus: true)
-                    if (boto3_installed != 0) {
-                        echo 'Installing boto3...'
-                        sh 'pip3 install boto3'
-                    }
+                    // Create and activate virtual environment
+                    sh '''
+                    python3 -m venv venv  # Crear entorno virtual
+                    . venv/bin/activate   # Activar entorno virtual
+                    pip install boto3  # Instalar boto3 en el entorno virtual
+                    '''
 
                     // Clone the repository
                     git url: 'https://github.com/dancb/infra-front.git', branch: 'main'
@@ -55,9 +56,9 @@ pipeline {
                     ./generate_terraform_plan.sh
                     '''
 
-                    // Download and execute pricing_calc.py
+                    // Download and execute pricing_calc.py inside virtual environment
                     sh '''
-                    curl -H "Authorization: token ${GITHUB_TOKEN}" -L -o pricing_calc.py https://github.com/dancb/iacost/blob/main/pricing_calc.py
+                    curl -H "Authorization: token ${GITHUB_TOKEN}" -L -o pricing_calc.py https://raw.githubusercontent.com/dancb/iacost/main/pricing_calc.py
                     . venv/bin/activate  # Activar el entorno virtual
                     python3 pricing_calc.py  # Ejecutar el script
                     '''
