@@ -55,9 +55,17 @@ pipeline {
                 script {
                     // Download and execute generate_terraform_plan.sh
                     sh '''
-                    echo "GITHUB_TOKEN: ${GITHUB_TOKEN}"  # Imprimir el valor de GITHUB_TOKEN (por seguridad, revisa el acceso a logs)
                     curl -H "Authorization: token ${GITHUB_TOKEN}" -L -o generate_terraform_plan.sh https://raw.githubusercontent.com/dancb/iacost/main/generate_terraform_plan.sh
                     chmod +x generate_terraform_plan.sh
+
+                    # Verificar si Terraform ya ha sido inicializado
+                    if [ ! -d ".terraform" ]; then
+                        echo "Terraform no está inicializado. Ejecutando terraform init..."
+                        terraform init
+                    else
+                        echo "Terraform ya está inicializado."
+                    fi
+
                     ./generate_terraform_plan.sh
                     '''
 
