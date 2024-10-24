@@ -35,4 +35,4 @@ resource "aws_eip" "ec2_1_eip" {
   instance = aws_instance.ec2_1.id
 }
 
-#comment 23
+#comment 
