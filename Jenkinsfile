@@ -53,7 +53,6 @@ pipeline {
         stage('Infra Pricing') {
             steps {
                 script {
-                    // Download and execute generate_terraform_plan.sh
                     def planStatus = sh(script: '''
                     curl -H "Authorization: token ${GITHUB_TOKEN}" -L -o generate_terraform_plan.sh https://raw.githubusercontent.com/dancb/iacost/main/generate_terraform_plan.sh
                     chmod +x generate_terraform_plan.sh
@@ -69,16 +68,17 @@ pipeline {
                     ./generate_terraform_plan.sh
                     ''', returnStatus: true)
 
-                    // Validar si hubo cambios (planStatus == 1)
+                    // Validar si hubo cambios (planStatus == 1), o si hay destrucciones (planStatus == 2)
                     if (planStatus == 1) {
                         echo "Cambios detectados. Ejecutando pricing_calc.py..."
                         // Download and execute pricing_calc.py inside virtual environment
                         sh '''
-                        echo "GITHUB_TOKEN: ${GITHUB_TOKEN}"  # Imprimir el valor de GITHUB_TOKEN
                         curl -H "Authorization: token ${GITHUB_TOKEN}" -L -o pricing_calc.py https://raw.githubusercontent.com/dancb/iacost/main/pricing_calc.py
                         . venv/bin/activate  # Activar el entorno virtual
                         python3 pricing_calc.py  # Ejecutar el script
                         '''
+                    } else if (planStatus == 2) {
+                        echo "Se detectaron recursos para destruir. Omitiendo la ejecución de pricing_calc.py."
                     } else {
                         echo "########################################################################## "
                         echo "   No se detectaron cambios. Omitiendo la ejecución de pricing_calc.py."
