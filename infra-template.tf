@@ -22,7 +22,7 @@ resource "aws_instance" "ec2_2" {
   instance_type = "t3.large"
 
   root_block_device {
-    volume_size = 5000
+    volume_size = 6000
     volume_type = "gp2"
   }
 
