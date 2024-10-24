@@ -81,9 +81,7 @@ pipeline {
                         '''
                     } else {
                         echo "########################################################################## "
-                        echo " "
-                        echo "No se detectaron cambios. Omitiendo la ejecución de pricing_calc.py."
-                        echo " "
+                        echo "   No se detectaron cambios. Omitiendo la ejecución de pricing_calc.py."
                         echo "########################################################################## "
                     }
                 }
