@@ -10,7 +10,7 @@ pipeline {
         stage('Clone Repository and Setup') {
             steps {
                 script {
-                    // Check and install Terraform, curl, Python, jq, and boto3 in a virtual environment
+                    // Check and install Terraform, curl, Python, and boto3 in a virtual environment
                     def terraform_installed = sh(script: 'which terraform', returnStatus: true)
                     if (terraform_installed != 0) {
                         echo 'Installing Terraform...'
@@ -25,12 +25,6 @@ pipeline {
                     if (curl_installed != 0) {
                         echo 'Installing curl...'
                         sh 'apt update && apt install -y curl'
-                    }
-
-                    def jq_installed = sh(script: 'which jq', returnStatus: true)
-                    if (jq_installed != 0) {
-                        echo 'Installing jq...'
-                        sh 'apt update && apt install -y jq'
                     }
 
                     def python_installed = sh(script: 'which python3', returnStatus: true)

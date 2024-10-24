@@ -30,3 +30,4 @@ resource "aws_instance" "ec2_2" {
     Name = "Instance-t3-large"
   }
 }
+
