@@ -8,7 +8,7 @@ resource "aws_instance" "ec2_1" {
   instance_type = "t3.medium"
 
   root_block_device {
-    volume_size = 300
+    volume_size = 200
     volume_type = "gp2"
   }
 
