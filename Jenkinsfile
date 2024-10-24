@@ -80,7 +80,9 @@ pipeline {
                         python3 pricing_calc.py  # Ejecutar el script
                         '''
                     } else {
-                        echo "No se detectaron cambios. Omitiendo la ejecución de pricing_calc.py."
+                        echo "########################################################################## "
+                        echo -e "\n\nNo se detectaron cambios. Omitiendo la ejecución de pricing_calc.py.\n\n"
+                        echo "########################################################################## "
                     }
                 }
             }
