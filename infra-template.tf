@@ -1,7 +1,7 @@
-# # Configuración del proveedor de AWS
-# provider "aws" {
-#   region = var.aws_region  # Se utilizará una variable para la región
-# }
+# Configuración del proveedor de AWS
+provider "aws" {
+  region = var.aws_region  # Se utilizará una variable para la región
+}
 
 # resource "aws_instance" "ec2_1" {
 #   ami           = "ami-0dba2cb6798deb6d8"
