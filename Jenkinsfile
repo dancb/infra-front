@@ -81,7 +81,7 @@ pipeline {
                         echo "Se detectaron recursos para destruir. Omitiendo la ejecución de pricing_calc.py."
                     } else {
                         echo "########################################################################## "
-                        echo "   No se detectaron cambios. Omitiendo la ejecución de pricing_calc.py."
+                        echo "   No se detectaron nuevos. Omitiendo la ejecución de pricing_calc.py."
                         echo "########################################################################## "
                     }
                 }
