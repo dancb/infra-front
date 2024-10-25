@@ -69,7 +69,7 @@ pipeline {
                     ''', returnStatus: true)
 
                     // Validar si hubo cambios (planStatus == 1), o si hay destrucciones (planStatus == 2)
-                    //if (planStatus == 1) {
+                    if (planStatus == 1) {
                         echo "Cambios detectados. Ejecutando pricing_calc.py..."
                         // Download and execute pricing_calc.py inside virtual environment
                         sh '''
@@ -77,13 +77,13 @@ pipeline {
                         . venv/bin/activate  # Activar el entorno virtual
                         python3 pricing_calc.py  # Ejecutar el script
                         '''
-                    /*} else if (planStatus == 2) {
+                    } else if (planStatus == 2) {
                         echo "Se detectaron recursos para destruir. Omitiendo la ejecución de pricing_calc.py."
                     } else {
                         echo "########################################################################## "
                         echo "   No se detectaron nuevos cambios. Omitiendo la ejecución de pricing_calc.py."
                         echo "########################################################################## "
-                    }*/
+                    }
                 }
             }
         }
